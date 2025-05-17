@@ -40,7 +40,7 @@ public class User {
     private void decreaseFollowerCounter() {
         followerCounter.decrease();
     }
-
+    //컨트럴
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
