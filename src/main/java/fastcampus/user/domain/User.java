@@ -1,5 +1,7 @@
 package fastcampus.user.domain;
 
+import fastcampus.common.domain.PositiveIntegerCounter;
+
 import java.util.Objects;
 
 public class User {
@@ -7,14 +9,14 @@ public class User {
     //유저 정보의 유효성 정보
     private final Long id;
     private final UserInfo info;;
-    private final UserRelationCounter followingCount;
-    private final UserRelationCounter followerCounter;
+    private final PositiveIntegerCounter followingCount;
+    private final PositiveIntegerCounter followerCounter;
 
     public User(Long id,UserInfo userInfo) {
         this.id = id;
         this.info = userInfo;
-        this.followingCount = new UserRelationCounter();
-        this.followerCounter = new UserRelationCounter();
+        this.followingCount = new PositiveIntegerCounter();
+        this.followerCounter = new PositiveIntegerCounter();
     }
 
     public void follow(User targetUser) throws IllegalAccessException {
