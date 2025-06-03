@@ -1,11 +1,9 @@
-package org.fastcampus.user.domain;
+package fastcampus.user.domain;
 
-import lombok.Data;
-import org.fastcampus.common.domain.PositiveIntegerCounter;
+import fastcampus.common.domain.PositiveIntegerCounter;
 
 import java.util.Objects;
 
-@Data
 public class User {
 
     //유저 정보의 유효성 정보
@@ -15,26 +13,22 @@ public class User {
     private final PositiveIntegerCounter followerCounter;
 
     public User(Long id,UserInfo userInfo) {
-        if (userInfo ==null){
-            throw new IllegalArgumentException("userInfo is null");
-        }
-
         this.id = id;
         this.info = userInfo;
         this.followingCount = new PositiveIntegerCounter();
         this.followerCounter = new PositiveIntegerCounter();
     }
 
-    public void follow(User targetUser) throws IllegalArgumentException {
+    public void follow(User targetUser) throws IllegalAccessException {
         if(targetUser.equals(this)){
-            throw new IllegalArgumentException();
+            throw new IllegalAccessException();
         }
         followingCount.increase();
         targetUser.increaseFollowerCounter();
     }
-    public void unfollow(User targetUser) throws IllegalArgumentException {
+    public void unfollow(User targetUser) throws IllegalAccessException {
         if(this.equals(targetUser)){
-           throw new IllegalArgumentException();
+           throw new IllegalAccessException();
         }
         followingCount.decrease();
         targetUser.decreaseFollowerCounter();
@@ -64,17 +58,7 @@ public class User {
         return Objects.hashCode(id);
     }
 
-
-    public int FollowerCount() {
-        return followerCounter.getCount();
-    }
-
-    public int FollowingCount() {
-        return followingCount.getCount();
-    }
-
     public Long getId() {
         return id;
     }
-
 }

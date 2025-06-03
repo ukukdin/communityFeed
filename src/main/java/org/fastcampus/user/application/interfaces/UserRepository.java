@@ -5,5 +5,4 @@ import org.fastcampus.user.domain.User;
 public interface UserRepository {
 
     User save(User user);
-
 }
