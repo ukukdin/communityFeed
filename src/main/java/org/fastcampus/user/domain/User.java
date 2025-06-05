@@ -1,6 +1,7 @@
-package fastcampus.user.domain;
+package org.fastcampus.user.domain;
 
-import fastcampus.common.domain.PositiveIntegerCounter;
+import org.fastcampus.common.domain.PositiveIntegerCounter;
+import org.fastcampus.user.domain.UserInfo;
 
 import java.util.Objects;
 

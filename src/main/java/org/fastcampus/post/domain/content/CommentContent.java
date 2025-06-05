@@ -9,7 +9,7 @@ public class CommentContent extends Content {
     }
 
     @Override
-    protected void checkText(String contentText) {
+    protected void checkLength(String contentText) {
         if(contentText == null || contentText.isEmpty()){
             throw new IllegalArgumentException();
         }

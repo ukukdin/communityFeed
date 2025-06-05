@@ -35,9 +35,9 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public Comment updateComment(UpdateCommentRequestDto dto) {
-        Comment comment = getComment(dto.commentId());
-        User user = userService.getUser(dto.userId());
+    public Comment updateComment(Long id, UpdateCommentRequestDto dto) {
+        Comment comment = getComment(id);
+        User user = userService.getUser(dto.commentId());
 
         comment.updatePost(user,dto.content());
         return commentRepository.save(comment);

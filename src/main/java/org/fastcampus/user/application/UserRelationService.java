@@ -14,7 +14,7 @@ public class UserRelationService {
         this.userService = userService;
     }
 
-    public void follow(FollowUserRequestDto dto) {
+    public void follow(FollowUserRequestDto dto) throws IllegalAccessException {
         User user = userService.getUser(dto.userId());
         User targetUser = userService.getUser(dto.targetUserId());
 
@@ -27,7 +27,7 @@ public class UserRelationService {
 
     }
 
-    public void unfollow(FollowUserRequestDto dto) {
+    public void unfollow(FollowUserRequestDto dto) throws IllegalAccessException {
         User user = userService.getUser(dto.userId());
         User targetUser = userService.getUser(dto.targetUserId());
 

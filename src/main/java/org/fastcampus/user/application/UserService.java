@@ -18,4 +18,5 @@ public class UserService {
         User user = new User(null, info);
         return userRepository.save(user);
     }
+
 }

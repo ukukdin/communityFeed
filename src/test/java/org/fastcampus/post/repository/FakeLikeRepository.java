@@ -5,9 +5,7 @@ import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.comment.Comment;
 import org.fastcampus.user.domain.User;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class FakeLikeRepository implements LikeRepository {
 
@@ -24,27 +22,54 @@ public class FakeLikeRepository implements LikeRepository {
 
     @Override
     public void like(Post post, User user) {
-        postLikes.get(post).add(user);
+
+        Set<User> users = postLikes.get(post);
+        if(users == null) {
+            users = new HashSet<>();
+        }
+        users.add(user);
+        postLikes.put(post, users);
 
     }
 
     @Override
     public void unlike(Post post, User user) {
-
+        Set<User> users = postLikes.get(post);
+        if(users == null) {
+            return;
+        }
+        users.remove(user);
+        postLikes.put(post, users);
     }
 
     @Override
     public boolean checkLike(Comment comment, User user) {
-        return false;
+       if(commentLikes.get(comment) == null) {
+           return false;
+       }
+       return commentLikes.get(comment).contains(user);
     }
 
     @Override
     public void like(Comment comment, User user) {
+        Set<User> users = postLikes.get(comment);
+        if(users == null) {
+            users = new HashSet<>();
+
+        }
+        users.add(user);
+        postLikes.get(comment).add(user);
 
     }
 
     @Override
     public void unlike(Comment comment, User user) {
+        Set<User> users = postLikes.get(comment);
+        if(users == null) {
+            return;
+        }
+        users.remove(user);
 
+        postLikes.get(comment).add(user);
     }
 }

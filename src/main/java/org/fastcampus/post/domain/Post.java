@@ -14,24 +14,13 @@ public class Post {
     private final PositiveIntegerCounter LikeCount;
     private PostPublicationState state;
 
-    public static Post createPost(Long id, User user, String content, PostPublicationState state) {
+
+    public static Post createPost(Long id, User user, Content content, PostPublicationState state) {
         return new Post(id, user, content, state);
     }
+    
 
-    public PostPublicationState getState() {
-        return state;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-
-    public static Post createDefaultPost(Long id, User user, String content) {
+    public static Post createDefaultPost(Long id, User user, String content, PostPublicationState state) {
         return new Post(id, user, new PostContent(content), PostPublicationState.PUBLIC);
     }
 
@@ -76,5 +65,15 @@ public class Post {
     public Content getContent() {
         return content;
     }
+    public PostPublicationState getState() {
+        return state;
+    }
 
+    public User getAuthor() {
+        return author;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }
