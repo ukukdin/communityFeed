@@ -1,5 +1,6 @@
 package org.fastcampus.post.domain.content;
 
+
 public class CommentContent extends Content {
 
     private static final int MAX_POST_LENGTH = 100;

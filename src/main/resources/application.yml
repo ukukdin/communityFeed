@@ -1,2 +1,20 @@
 server:
   port: 8088
+
+spring:
+    datasource:
+      url: jdbc:mysql://localhost:3306/community_feed  # ← 이 DB는 수동 생성해야 함!
+      username: root
+      password: admin
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+    jpa:
+      hibernate:
+        ddl-auto: update  # 또는 create, validate
+      show-sql: true
+      properties:
+        hibernate:
+          format_sql: true
+      open-in-view: false
+      database-platform: org.hibernate.dialect.MySQL8Dialect
+

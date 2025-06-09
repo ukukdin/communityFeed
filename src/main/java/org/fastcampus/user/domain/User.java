@@ -1,21 +1,32 @@
 package org.fastcampus.user.domain;
 
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.fastcampus.common.domain.PositiveIntegerCounter;
 import org.fastcampus.user.domain.UserInfo;
 
 import java.util.Objects;
 
+@Getter
+@Builder
+@AllArgsConstructor
 public class User {
 
     //유저 정보의 유효성 정보
-    private final Long id;
-    private final UserInfo info;;
-    private final PositiveIntegerCounter followingCount;
-    private final PositiveIntegerCounter followerCounter;
+
+    private Long id;
+    private UserInfo userInfo;;
+    private PositiveIntegerCounter followingCount;
+    private PositiveIntegerCounter followerCounter;
 
     public User(Long id,UserInfo userInfo) {
         this.id = id;
-        this.info = userInfo;
+        this.userInfo = userInfo;
         this.followingCount = new PositiveIntegerCounter();
         this.followerCounter = new PositiveIntegerCounter();
     }
@@ -61,5 +72,30 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public PositiveIntegerCounter getFollowerCounter() {
+        return followerCounter;
+    }
+
+    public PositiveIntegerCounter getFollowingCount() {
+        return followingCount;
+    }
+
+    public int followerCounter() {
+        return followerCounter.getCount();
+    }
+    public int followingCounter() {
+        return followingCount.getCount();
+    }
+    public String getProfileImage() {
+        return userInfo.getProfileImageUrl();
+    }
+
+    public String getName(){
+        return userInfo.getName();
     }
 }

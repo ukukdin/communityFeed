@@ -7,16 +7,20 @@ import org.fastcampus.user.domain.UserInfo;
 
 public class UserService {
 
+
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public User createUser(CreateUserRequestDto dto){
-        UserInfo  info = new UserInfo(dto.name(), dto.profileImageUrl());
-        User user = new User(null, info);
+    public User createUser(CreateUserRequestDto dto) {
+        UserInfo userInfo = new UserInfo(dto.userName(), dto.userProfileUrl());
+        User user = new User(null, userInfo);
         return userRepository.save(user);
     }
 
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
 }
