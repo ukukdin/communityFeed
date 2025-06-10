@@ -7,6 +7,7 @@ import org.fastcampus.common.repository.entity.TimeBaseEntity;
 import org.fastcampus.post.repository.entity.post.PostEntity;
 import org.fastcampus.user.domain.User;
 import org.fastcampus.user.domain.UserInfo;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.List;
 
@@ -25,9 +26,6 @@ public class UserEntity extends TimeBaseEntity  {
     private Integer followingCount;
     private Integer followerCounter;
 
-
-    @OneToMany
-    private List<PostEntity> posts;
 
     public UserEntity(User user) {
         this.id = user.getId();

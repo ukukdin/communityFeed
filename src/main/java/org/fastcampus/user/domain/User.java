@@ -31,16 +31,16 @@ public class User {
         this.followerCounter = new PositiveIntegerCounter();
     }
 
-    public void follow(User targetUser) throws IllegalAccessException {
+    public void follow(User targetUser) {
         if(targetUser.equals(this)){
-            throw new IllegalAccessException();
+            throw new IllegalArgumentException();
         }
         followingCount.increase();
         targetUser.increaseFollowerCounter();
     }
-    public void unfollow(User targetUser) throws IllegalAccessException {
+    public void unfollow(User targetUser){
         if(this.equals(targetUser)){
-           throw new IllegalAccessException();
+           throw new IllegalArgumentException();
         }
         followingCount.decrease();
         targetUser.decreaseFollowerCounter();

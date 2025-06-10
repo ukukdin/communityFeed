@@ -5,8 +5,8 @@ import org.fastcampus.user.application.dto.CreateUserRequestDto;
 import org.fastcampus.user.application.dto.FollowUserRequestDto;
 import org.fastcampus.user.application.interfaces.UserRelationRepository;
 import org.fastcampus.user.domain.User;
-import org.fastcampus.user.repository.FakeUserRelationRepository;
-import org.fastcampus.user.repository.FakeUserRepository;
+import org.fastcampus.fake.FakeUserRelationRepository;
+import org.fastcampus.fake.FakeUserRepository;
 import org.fastcampus.user.application.interfaces.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,8 +40,8 @@ public class UserRelationServiceTest {
 
         userRelationService.follow(requestDto);
 
-        assertEquals(1,user1.FollowingCount());
-        assertEquals(1,user2.FollowerCount());
+        assertEquals(1,user1.getFollowingCount());
+        assertEquals(1,user2.getFollowerCounter());
 
     }
 
@@ -63,12 +63,12 @@ public class UserRelationServiceTest {
 
 //    0000000
     @Test
-    void givenCreateTwoUser_whenUnFollow_thenUserUnFollowSaved(){
+    void givenCreateTwoUser_whenUnFollow_thenUserUnFollowSaved() {
 
         userRelationService.unfollow(requestDto);
 
-        assertEquals(0,user1.FollowingCount());
-        assertEquals(0,user2.FollowerCount());
+        assertEquals(0,user1.getFollowingCount());
+        assertEquals(0,user2.getFollowerCounter());
 
     }
 

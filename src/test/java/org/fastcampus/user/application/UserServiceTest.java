@@ -1,7 +1,7 @@
 package org.fastcampus.user.application;
 
 import org.fastcampus.fake.FakeObjectFactory;
-import org.fastcampus.user.repository.FakeUserRepository;
+import org.fastcampus.fake.FakeUserRepository;
 import org.fastcampus.user.application.dto.CreateUserRequestDto;
 import org.fastcampus.user.application.interfaces.UserRepository;
 import org.fastcampus.user.domain.User;
@@ -23,7 +23,7 @@ class UserServiceTest {
         User savedUser = userService.createUser(dto);
         //then
         User foundUser = userService.getUser(savedUser.getId());
-        UserInfo userInfo = foundUser.getInfo();
+        UserInfo userInfo = foundUser.getUserInfo();
         assertEquals(foundUser.getId(), savedUser.getId());
         assertEquals("test", userInfo.getName());
 

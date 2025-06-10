@@ -12,8 +12,7 @@ import org.fastcampus.user.application.UserRelationService;
 import org.fastcampus.user.application.UserService;
 import org.fastcampus.user.application.interfaces.UserRelationRepository;
 import org.fastcampus.user.application.interfaces.UserRepository;
-import org.fastcampus.user.repository.FakeUserRelationRepository;
-import org.fastcampus.user.repository.FakeUserRepository;
+
 
 public class FakeObjectFactory {
 
