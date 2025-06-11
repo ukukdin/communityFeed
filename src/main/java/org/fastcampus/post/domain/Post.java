@@ -41,8 +41,8 @@ public class Post {
         this.LikeCount = new PositiveIntegerCounter();
         this.state = state;
     }
-    public Post(Long id, User author, Content content ) {
-        this(id, author, content, PostPublicationState.PUBLIC);
+    public Post(Long id, User author, String content ) {
+        this(id, author, new PostContent(content), PostPublicationState.PUBLIC);
     }
 
     public int getLikeCount() {
@@ -56,7 +56,7 @@ public class Post {
         LikeCount.increase();
     }
 
-    public void disLike() {
+    public void unlike() {
 
         this.LikeCount.decrease();
     }
@@ -69,8 +69,9 @@ public class Post {
     }
 
 
-    public String getContent() {
+    public String getContentText() {
         return content.getContentText();
     }
+
 
 }

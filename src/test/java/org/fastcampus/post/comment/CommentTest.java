@@ -17,8 +17,8 @@ class CommentTest {
     private final User user = new User(1L,userInfo );
     private final User otherUser = new User(2L, userInfo);
 
-    private final Post post = new Post(1L, user, new PostContent("content"));
-    private final Comment comment = new Comment(user, 1L, post, new CommentContent("content"));
+    private final Post post = new Post(1L, user, "content");
+    private final Comment comment = new Comment(1L, post, user, "comment content");
 
     @Test
     void givenCommentCreate_WhenLike_ThenLikeCountShouldBe1() {
@@ -42,7 +42,7 @@ class CommentTest {
         comment.like(otherUser);
 
         //when
-        comment.disLike();
+        comment.unlike();
         //then
         assertEquals(0,comment.getLikeCount());
     }
@@ -50,7 +50,7 @@ class CommentTest {
     @Test
     void givenCommentCreated_whenUnlike_thenLikeCountShouldBe0() {
         //when
-        comment.disLike();
+        comment.unlike();
 
         //then
         assertEquals(0,comment.getLikeCount());
@@ -61,7 +61,7 @@ class CommentTest {
         //given
         String newCommentContent = "new Content";
         //when
-        comment.updatePost(user, newCommentContent);
+        comment.updateContent(user, newCommentContent);
 
         //then
         assertEquals(newCommentContent,comment.getContent());
@@ -75,6 +75,6 @@ class CommentTest {
         String newCommentContent = "a".repeat(101);
 
         //when, then
-        assertThrows(IllegalArgumentException.class, () -> comment.updatePost(user, newCommentContent));
+        assertThrows(IllegalArgumentException.class, () -> comment.updateContent(user, newCommentContent));
     }
 }

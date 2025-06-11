@@ -9,7 +9,9 @@ import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.comment.Comment;
 import org.fastcampus.user.application.UserService;
 import org.fastcampus.user.domain.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommentService {
     private final UserService userService;
     private final PostService postService;
@@ -24,22 +26,23 @@ public class CommentService {
     }
 
     public Comment getComment(Long id) {
-        return commentRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        return commentRepository.findById(id);
     }
 
     public Comment createComment(CreateCommentRequestDto dto) {
 
         Post post = postService.getPost(dto.postId());
         User user = userService.getUser(dto.userId());
-        Comment comment = Comment.createComment(user, post, dto.content());
+        Comment comment = new Comment(null,post, user, dto.content());
         return commentRepository.save(comment);
     }
 
-    public Comment updateComment(Long id, UpdateCommentRequestDto dto) {
-        Comment comment = getComment(id);
-        User user = userService.getUser(dto.commentId());
+    public Comment updateComment(Long commentId, UpdateCommentRequestDto dto) {
+        Comment comment = getComment(commentId);
 
-        comment.updatePost(user,dto.content());
+        User user = userService.getUser(commentId);
+
+        comment.updateContent(user,dto.content());
         return commentRepository.save(comment);
     }
 
@@ -60,7 +63,7 @@ public class CommentService {
         User user = userService.getUser(dto.userId());
 
         if(likeRepository.checkLike(comment, user)) {
-            comment.disLike();
+            comment.unlike();
             likeRepository.unlike(comment, user);
 
         }

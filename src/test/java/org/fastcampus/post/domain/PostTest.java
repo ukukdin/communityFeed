@@ -15,7 +15,7 @@ class PostTest {
     private final User user = new User(1L,userInfo );
     private final User otherUser = new User(2L, userInfo);
 
-    private final Post post = new Post(1L, user, new PostContent("content"));
+    private final Post post = new Post(1L, user,"content");
     @Test
     void givenPostCreateWhenLikeThenLikeCountShouldBe1(){
         //when
@@ -37,7 +37,7 @@ class PostTest {
         post.like(otherUser);
 
         //when
-        post.disLike();
+        post.unlike();
 
         //then
         assertEquals(0, post.getLikeCount());
@@ -47,7 +47,7 @@ class PostTest {
     @Test
     void givenPostCreated_whenUnLikeByOtherUser_thenThrowException() {
         //when
-        post.disLike();
+        post.unlike();
 
         //then
         assertEquals(0, post.getLikeCount());

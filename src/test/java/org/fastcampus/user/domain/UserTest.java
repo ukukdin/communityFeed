@@ -67,10 +67,10 @@ public class UserTest {
         user1.follow(user2);
 
         //then
-        assertEquals(1,user1.FollowingCount());
-        assertEquals(0,user1.FollowerCount());
-        assertEquals(0,user2.FollowingCount());
-        assertEquals(1,user2.FollowerCount());
+        assertEquals(1,user1.followingCounter());
+        assertEquals(0,user1.followerCounter());
+        assertEquals(0,user2.followingCounter());
+        assertEquals(1,user2.followerCounter());
     }
     @Test
     void givenTwoUser1FollowUser2_whenUser1FallowUser2_thenIncreaseUserCount(){
@@ -79,10 +79,10 @@ public class UserTest {
 
         user1.unfollow(user2);
         //then
-        assertEquals(0,user1.FollowingCount());
-        assertEquals(0,user1.FollowerCount());
-        assertEquals(0,user2.FollowingCount());
-        assertEquals(0,user2.FollowerCount());
+        assertEquals(0,user1.followingCounter());
+        assertEquals(0,user1.followerCounter());
+        assertEquals(0,user2.followingCounter());
+        assertEquals(0,user2.followerCounter());
     }
 
 
@@ -92,9 +92,9 @@ public class UserTest {
         user1.unfollow(user2);
 
         //then
-        assertEquals(0,user1.FollowingCount());
-        assertEquals(0,user1.FollowerCount());
-        assertEquals(0,user2.FollowingCount());
-        assertEquals(0,user2.FollowerCount());
+        assertEquals(0,user1.followingCounter());
+        assertEquals(0,user1.followerCounter());
+        assertEquals(0,user2.followingCounter());
+        assertEquals(0,user2.followerCounter());
     }
 }

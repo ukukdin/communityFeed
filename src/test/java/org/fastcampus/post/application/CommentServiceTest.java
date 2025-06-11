@@ -29,7 +29,7 @@ class CommentServiceTest extends PostApplicationTestTemplate {
         Comment comment = commentService.createComment(dto);
 
         //then
-        String content = comment.getContent();
+        String content = comment.getContentText();
         assertEquals(commentContent, content);
     }
 
@@ -45,7 +45,7 @@ class CommentServiceTest extends PostApplicationTestTemplate {
         Comment updatedComment = commentService.updateComment(comment.getId(), updateCommentRequestDto);
 
         // then
-        Content content = updatedComment.getContentObject();
+        Content content = updatedComment.getContent();
         assertEquals(updatedCommentContent, content.getContentText());
     }
 

@@ -22,4 +22,6 @@ public class PostApplicationTestTemplate {
 
     CreatePostRequestDto dto = new CreatePostRequestDto(user.getId(), "this is test content", PostPublicationState.PUBLIC);
     final Post post = postService.createPost(dto);
+
+
 }

@@ -18,12 +18,12 @@ public class FakeCommentRepository implements CommentRepository {
             return comment;
         }
         long id = store.size() +1;
-        Comment newComment = new Comment(comment.getAuthor(), id, comment.getPost(), comment.getContentObject());
+        Comment newComment = new Comment(id, comment.getPost(), comment.getAuthor(), comment.getContent());
         return newComment;
     }
 
     @Override
-    public Optional<Comment> findById(Long id) {
-        return Optional.ofNullable(store.get(id));
+    public Comment findById(Long id) {
+        return store.get(id);
     }
 }

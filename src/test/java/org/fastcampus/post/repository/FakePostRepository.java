@@ -18,13 +18,13 @@ public class FakePostRepository implements PostRepository {
           return post;
         }
         long id = store.size() + 1;
-        Post newPost = new Post(id, post.getAuthor(), post.getContent());
+        Post newPost = new Post(id, post.getAuthor(), post.getContentText());
         store.put(id, newPost);
         return newPost;
     }
 
     @Override
-    public Optional<Post> findById(Long id) {
-        return Optional.ofNullable(store.get(id));
+    public Post findById(Long id) {
+        return store.get(id);
     }
 }

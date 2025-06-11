@@ -3,6 +3,8 @@ package org.fastcampus.post.application.Interfaces;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.post.domain.comment.Comment;
 import org.fastcampus.user.domain.User;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 public interface LikeRepository {
 

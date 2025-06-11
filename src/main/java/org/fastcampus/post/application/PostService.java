@@ -4,10 +4,13 @@ import org.fastcampus.post.application.Interfaces.LikeRepository;
 import org.fastcampus.post.application.Interfaces.PostRepository;
 import org.fastcampus.post.application.dto.CreatePostRequestDto;
 import org.fastcampus.post.application.dto.LikeRequestDto;
+import org.fastcampus.post.application.dto.UpdatedPostRequestDto;
 import org.fastcampus.post.domain.Post;
 import org.fastcampus.user.application.UserService;
 import org.fastcampus.user.domain.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PostService{
 
     private final UserService userService;
@@ -23,7 +26,7 @@ public class PostService{
     }
 
     public Post getPost(Long id){
-        return postRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("post not found"));
+        return postRepository.findById(id);
     }
 
     public Post createPost(CreatePostRequestDto dto) {
@@ -33,7 +36,7 @@ public class PostService{
         return postRepository.save(post);
     }
 
-    public Post updatePost(Long id, CreatePostRequestDto dto) {
+    public Post updatePost(Long id, UpdatedPostRequestDto dto) {
         Post post = getPost(id);
         User user = userService.getUser(dto.userId());
 
@@ -58,10 +61,9 @@ public class PostService{
         Post post = getPost(dto.targetId());
         User user = userService.getUser(dto.userId());
 
-        if(likeRepository.checkLike(post, user)) {
-            post.disLike();
-            likeRepository.unlike(post,user);
+        if (likeRepository.checkLike(post, user)) {
+            post.unlike();
+            likeRepository.unlike(post, user);
         }
-
     }
 }

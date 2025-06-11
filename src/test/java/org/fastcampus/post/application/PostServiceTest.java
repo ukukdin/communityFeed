@@ -1,7 +1,10 @@
 package org.fastcampus.post.application;
 
 import org.fastcampus.post.application.dto.LikeRequestDto;
+import org.fastcampus.post.application.dto.UpdatedPostRequestDto;
 import org.fastcampus.post.domain.Post;
+import org.fastcampus.post.domain.content.Content;
+import org.fastcampus.post.domain.content.PostPublicationState;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,13 +27,16 @@ class PostServiceTest extends PostApplicationTestTemplate {
         //give
         Post savePost = postService.createPost(dto);
 
+
+
         //when
-        Post post = postService.updatePost(savePost.getId(),dto);
+        UpdatedPostRequestDto updateDto = new UpdatedPostRequestDto( user.getId(), "updated-content", PostPublicationState.PRIVATE);
+        Post updatedPost = postService.updatePost(savePost.getId(), updateDto);
 
         //then
-        assertEquals(savePost.getId(), post.getId());
-        assertEquals(savePost.getAuthor(), post.getAuthor());
-        assertEquals(savePost.getContent(), post.getContent());
+        Content content = updatedPost.getContent();
+        assertEquals("updated-content", content.getContentText());
+        assertEquals(PostPublicationState.PRIVATE, updatedPost.getState());
 
 
     }

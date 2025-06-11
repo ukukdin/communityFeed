@@ -10,89 +10,84 @@ import org.fastcampus.post.domain.content.Content;
 import org.fastcampus.post.domain.content.PostPublicationState;
 import org.fastcampus.user.domain.User;
 
-@Builder
-@Getter
-@AllArgsConstructor
-public class Comment {
+import java.util.Objects;
 
+@Getter
+public class Comment {
     private final Long id;
     private final Post post;
     private final User author;
     private final Content content;
-    private final PositiveIntegerCounter LikeCount;
-    private PostPublicationState state;
+    private final PositiveIntegerCounter likeCounter;
 
-    public static Comment createComment( User author, Post post, String content){
-        return new Comment(author, null, post,new CommentContent(content));
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public PostPublicationState getState() {
-        return state;
-    }
-
-    public Comment(User author, Long id, Post post, Content content) {
-        if(author == null){
-            throw new IllegalArgumentException();
+    @Builder
+    public Comment(Long id, Post post, User author, Content content,
+                   PositiveIntegerCounter likeCounter) {
+        if (post == null) {
+            throw new IllegalArgumentException("post should not be null");
+        }
+        if (author == null) {
+            throw new IllegalArgumentException("author should not be null");
+        }
+        if (content == null) {
+            throw new IllegalArgumentException("content should not be null or empty");
         }
 
-        if(post == null){
-            throw new IllegalArgumentException();
-        }
-
-        if (content == null){
-            throw new IllegalArgumentException();
-        }
-
-
-        this.author = author;
         this.id = id;
         this.post = post;
+        this.author = author;
         this.content = content;
-        this.LikeCount = new PositiveIntegerCounter();
+        this.likeCounter = likeCounter;
+    }
+
+    public Comment(Long id, Post post, User author, Content content) {
+        this(id, post, author, content, new PositiveIntegerCounter());
+    }
+
+    public Comment(Long id, Post post, User author, String content) {
+        this(id, post, author, new CommentContent(content), new PositiveIntegerCounter());
+    }
+
+    public void updateContent(User user, String content) {
+        if (!author.equals(user)) {
+            throw new IllegalArgumentException("only author can update content");
+        }
+        this.content.updateContent(content);
     }
 
     public void like(User user) {
-        if(this.author.equals(user)){
-            throw new IllegalArgumentException();
+        if (author.equals(user)) {
+            throw new IllegalArgumentException("author cannot like own comment");
         }
-        LikeCount.increase();
+        likeCounter.increase();
     }
 
-    public void disLike() {
-        this.LikeCount.decrease();
-    }
-
-    public void updatePost(User user, String updatedContent){
-        if(!this.author.equals(user)){
-            throw new IllegalArgumentException();
-        }
-        this.state = state;
-        this.content.updateContent(updatedContent);
+    public void unlike() {
+        likeCounter.decrease();
     }
 
     public int getLikeCount() {
-        return LikeCount.getCount();
+        return likeCounter.getCount();
     }
 
-    public String getContent() {
-        return content.getContentText() ;
+    public String getContentText() {
+        return content.getContentText();
     }
 
-    public Content getContentObject() {
-        return content ;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Comment comment = (Comment) o;
+        return Objects.equals(id, comment.id);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

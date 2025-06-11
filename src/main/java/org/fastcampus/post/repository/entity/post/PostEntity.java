@@ -25,16 +25,17 @@ public class PostEntity extends TimeBaseEntity {
     @JoinColumn(name="author_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private UserEntity author;
 
+    private String content;
+
     @Convert(converter = PostPublicationStateConverter.class )
     private PostPublicationState state;
-
-    private String content;
     private Integer likeCount;
+
 
     public PostEntity(Post post) {
         this.id = post.getId();
         this.author = new UserEntity(post.getAuthor());
-        this.content = post.getContent();
+        this.content = post.getContentText();
         this.state = post.getState();
         this.likeCount = post.getLikeCount();
     }
