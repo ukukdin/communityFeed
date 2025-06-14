@@ -21,7 +21,7 @@ public class UserRelationRepositoryImpl implements UserRelationRepository {
     private final JpaUserRelationRepository jpaUserRelationRepository;
     private final JpaUserRepository jpaUserRepository;
 
-    //jspuserrepsoity 에서 id를 통해서 존재 여부를 불린값으로 반환하는 메소드 구현 함
+    //jsp user  repository 에서 id를 통해서 존재 여부를 불린값으로 반환하는 메소드 구현 함
     @Override
     public boolean isAlreadyFollow(User user, User targetUser) {
         UserRelationIdEntity id = new UserRelationIdEntity(user.getId(), targetUser.getId());
